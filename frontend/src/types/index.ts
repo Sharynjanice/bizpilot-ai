@@ -1,6 +1,6 @@
 export type RequestStatus = 'to_validate' | 'sending' | 'sent' | 'rejected' | 'error'
 
-export type Priority = 'low' | 'medium' | 'high' | (string & {})
+export type Priority = 'low' | 'normal' | 'high' | (string & {})
 
 export interface ExtractedFields {
   property_type: string | null

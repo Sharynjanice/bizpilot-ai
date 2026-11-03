@@ -1,6 +1,6 @@
 import { useId, useRef, useState } from 'react'
 import type { Request } from '../types'
-import { categoryLabel, formatDate, formatEuro, priorityLabel } from '../utils/format'
+import { actionLabel, categoryLabel, formatDate, formatEuro, priorityLabel } from '../utils/format'
 import { ConfirmDialog } from './ConfirmDialog'
 import { StatusBadge } from './StatusBadge'
 
@@ -114,7 +114,7 @@ export function RequestDetail({ request, draft, onDraftChange, onApprove, onReje
               </div>
               <div>
                 <dt>Action suggérée</dt>
-                <dd>{analysis.suggested_action}</dd>
+                <dd>{actionLabel(analysis.suggested_action)}</dd>
               </div>
             </dl>
           </section>

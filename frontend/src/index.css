@@ -484,7 +484,7 @@ textarea {
   background: #ffe6e0;
   color: #a3321a;
 }
-.tag--priority-medium {
+.tag--priority-normal {
   background: var(--warning-bg);
   color: var(--warning);
 }

@@ -20,14 +20,12 @@ export const STATUS_LABELS: Record<RequestStatus, string> = {
   error: 'Erreur',
 }
 
+// Valeurs produites par le prompt Claude du workflow n8n (nœud « Preparer analyse »).
 const CATEGORY_LABELS: Record<string, string> = {
-  achat: 'Achat',
-  vente: 'Vente',
-  location: 'Location',
-  estimation: 'Estimation',
-  gestion: 'Gestion locative',
-  hors_sujet: 'Hors sujet',
-  autre: 'Autre',
+  property_search: 'Recherche de bien',
+  visit_request: 'Demande de visite',
+  information: 'Demande d’information',
+  to_review: 'À examiner',
 }
 
 export function categoryLabel(category: string | undefined | null): string {
@@ -35,9 +33,18 @@ export function categoryLabel(category: string | undefined | null): string {
   return CATEGORY_LABELS[category] ?? category.charAt(0).toUpperCase() + category.slice(1).replace(/_/g, ' ')
 }
 
-const PRIORITY_LABELS: Record<string, string> = { low: 'Basse', medium: 'Moyenne', high: 'Haute' }
+const PRIORITY_LABELS: Record<string, string> = { low: 'Basse', normal: 'Normale', high: 'Haute' }
 export function priorityLabel(p: string): string {
   return PRIORITY_LABELS[p] ?? p
+}
+
+const ACTION_LABELS: Record<string, string> = {
+  prepare_visit: 'Préparer une visite',
+  reply_only: 'Répondre uniquement',
+  review: 'À examiner',
+}
+export function actionLabel(a: string): string {
+  return ACTION_LABELS[a] ?? a
 }
 
 /** « Nouvelle » = reçue au cours des dernières 24 heures. */

@@ -18,7 +18,7 @@ export function createMockRequests(): Request[] {
       analysis: {
         summary:
           'Couple à la recherche d’un T3 à Lyon (6e ou 3e), budget max 350 000 €, emménagement souhaité en septembre. Demande de visites.',
-        category: 'achat',
+        category: 'visit_request',
         priority: 'high',
         extracted: {
           property_type: 'Appartement T3',
@@ -30,14 +30,14 @@ export function createMockRequests(): Request[] {
         draft_reply:
           "Bonjour Madame Martin,\n\nMerci pour votre message. Nous avons actuellement plusieurs T3 dans les 3e et 6e arrondissements de Lyon correspondant à votre budget de 350 000 €.\n\n" +
           "Seriez-vous disponible cette semaine pour une première visite ?\n\nBien cordialement,\nL’équipe de l’agence",
-        suggested_action: 'Proposer des créneaux de visite',
+        suggested_action: 'prepare_visit',
         requires_human_approval: true,
       },
       status: 'to_validate',
       error: null,
       history: [
         { at: minutesAgo(12), action: 'Réception', status: 'ok', detail: 'E-mail reçu' },
-        { at: minutesAgo(11), action: 'Analyse IA', status: 'ok', detail: 'Catégorie : achat, priorité haute' },
+        { at: minutesAgo(11), action: 'Analyse IA', status: 'ok', detail: 'Catégorie : demande de visite, priorité haute' },
       ],
     },
     {
@@ -50,8 +50,8 @@ export function createMockRequests(): Request[] {
       body: "Bonjour, je cherche une maison à louer. Merci de me recontacter.\nKarim",
       analysis: {
         summary: 'Recherche d’une maison en location, sans précision de ville, de budget ni de date.',
-        category: 'location',
-        priority: 'medium',
+        category: 'property_search',
+        priority: 'normal',
         extracted: {
           property_type: 'Maison',
           city: null,
@@ -62,7 +62,7 @@ export function createMockRequests(): Request[] {
         draft_reply:
           "Bonjour Monsieur Benali,\n\nMerci pour votre demande. Afin de vous proposer des biens adaptés, pourriez-vous nous préciser :\n" +
           "- la ville ou le secteur recherché,\n- votre budget mensuel maximum,\n- la date d’emménagement souhaitée ?\n\nBien cordialement,\nL’équipe de l’agence",
-        suggested_action: 'Demander les informations manquantes',
+        suggested_action: 'reply_only',
         requires_human_approval: true,
       },
       status: 'to_validate',
@@ -82,7 +82,7 @@ export function createMockRequests(): Request[] {
       body: 'Profitez de -30 % sur toute notre gamme d’imprimantes professionnelles jusqu’à dimanche !',
       analysis: {
         summary: 'Message publicitaire sans lien avec une demande immobilière.',
-        category: 'hors_sujet',
+        category: 'to_review',
         priority: 'low',
         extracted: {
           property_type: null,
@@ -92,14 +92,14 @@ export function createMockRequests(): Request[] {
         },
         missing_information: [],
         draft_reply: '',
-        suggested_action: 'Ignorer',
+        suggested_action: 'review',
         requires_human_approval: false,
       },
       status: 'rejected',
       error: null,
       history: [
         { at: minutesAgo(180), action: 'Réception', status: 'ok', detail: 'E-mail reçu' },
-        { at: minutesAgo(179), action: 'Analyse IA', status: 'ok', detail: 'Classé hors sujet' },
+        { at: minutesAgo(179), action: 'Analyse IA', status: 'ok', detail: 'Classé à examiner' },
         { at: minutesAgo(170), action: 'Rejet', status: 'rejected', detail: 'Rejeté par un agent' },
       ],
     },
@@ -114,8 +114,8 @@ export function createMockRequests(): Request[] {
         "Bonjour,\n\nJe souhaiterais faire estimer mon studio de 28 m² situé à Bordeaux, quartier Chartrons, en vue d’une vente au printemps.\n\nMerci,\nSophie Durand",
       analysis: {
         summary: 'Demande d’estimation d’un studio de 28 m² à Bordeaux (Chartrons) en vue d’une vente au printemps.',
-        category: 'estimation',
-        priority: 'medium',
+        category: 'information',
+        priority: 'normal',
         extracted: {
           property_type: 'Studio',
           city: 'Bordeaux',
@@ -125,14 +125,14 @@ export function createMockRequests(): Request[] {
         missing_information: [],
         draft_reply:
           "Bonjour Madame Durand,\n\nMerci pour votre confiance. Nous serions ravis d’estimer votre studio aux Chartrons. Quelles sont vos disponibilités pour une visite d’estimation ?\n\nBien cordialement,\nL’équipe de l’agence",
-        suggested_action: 'Planifier une visite d’estimation',
+        suggested_action: 'prepare_visit',
         requires_human_approval: true,
       },
       status: 'error',
       error: 'Échec de l’envoi : le serveur de messagerie a refusé la connexion (SMTP 421).',
       history: [
         { at: minutesAgo(320), action: 'Réception', status: 'ok', detail: 'E-mail reçu' },
-        { at: minutesAgo(319), action: 'Analyse IA', status: 'ok', detail: 'Catégorie : estimation' },
+        { at: minutesAgo(319), action: 'Analyse IA', status: 'ok', detail: 'Catégorie : demande d’information' },
         { at: minutesAgo(300), action: 'Approbation', status: 'ok', detail: 'Réponse approuvée' },
         { at: minutesAgo(299), action: 'Envoi', status: 'error', detail: 'SMTP 421 : connexion refusée' },
       ],
